@@ -3,6 +3,7 @@
 Module contenant un générateur asynchrone qui crée des nombres aléatoires.
 """
 
+
 import asyncio
 import random
 from typing import AsyncGenerator  # Changement ici : AsyncGenerator au lieu de Generator
