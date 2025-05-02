@@ -4,16 +4,15 @@ Module contenant un générateur asynchrone qui crée des nombres aléatoires.
 """
 
 
-import asyncio
-import random
-from typing import AsyncGenerator  # Changement ici : AsyncGenerator au lieu de Generator
+from typing import List
+async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_generator() -> AsyncGenerator[float, None]:
+async def async_comprehension() -> List[float]:
     """
-    Générateur magique qui donne 10 nombres au hasard,
-    en faisant une pause d'1 seconde entre chaque nombre.
+    Collects 10 random numbers using async comprehension.
+
+    Returns:
+        List[float]: List of 10 random float numbers.
     """
-    for _ in range(10):
-        await asyncio.sleep(1)
-        yield random.uniform(0, 10)
+    return [number async for number in async_generator()]
