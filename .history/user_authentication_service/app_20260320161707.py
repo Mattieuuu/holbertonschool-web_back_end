@@ -12,12 +12,16 @@ AUTH = Auth()
 
 
 @app.route("/", methods=["GET"])
+
+
 def welcome() -> Response:
     """Return a JSON response with a welcome message for the user."""
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=["POST"])
+
+
 def users() -> Response:
     """Register a new user or return error if already registered."""
     email = request.form.get("email")
@@ -32,6 +36,8 @@ def users() -> Response:
 
 
 @app.route("/sessions", methods=["POST"])
+
+
 def login() -> Response:
     """Log in a user, create session, set session_id cookie, or abort 401."""
     email = request.form.get("email")
