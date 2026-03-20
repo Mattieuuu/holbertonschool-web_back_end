@@ -77,10 +77,7 @@ class Auth:
         """
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(
-                password.encode('utf-8'),
-                user.hashed_password.encode('utf-8')
-            )
+            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password.encode('utf-8'))
         except Exception:
             return False
 
@@ -102,16 +99,13 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> User:
-        """Return the user linked to a session_id.
-
-        Return None if no user matches the session ID or if it is None.
+        """Return the User associated with the given session_id, or None if not found or session_id is None.
 
         Args:
             session_id (str): The session ID to search for.
 
         Returns:
-            User: The user associated with the session_id, or None
-            if not found.
+            User: The user associated with the session_id, or None if not found.
         """
         if session_id is None:
             return None
@@ -121,11 +115,10 @@ class Auth:
             return None
 
     def destroy_session(self, user_id: int) -> None:
-        """Destroy the session for a user by clearing session_id.
+        """Destroy the session for the user by setting session_id to None.
 
         Args:
-            user_id (int): The ID of the user whose session
-            should be destroyed.
+            user_id (int): The ID of the user whose session should be destroyed.
 
         Returns:
             None
@@ -136,7 +129,7 @@ class Auth:
             pass
 
     def get_reset_password_token(self, email: str) -> str:
-        """Generate and store a reset token for the user identified by email.
+        """Generate and persist a reset token for the user identified by email.
 
         Args:
             email (str): The email of the user requesting a password reset.

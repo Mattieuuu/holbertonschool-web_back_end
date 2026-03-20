@@ -110,8 +110,7 @@ class Auth:
             session_id (str): The session ID to search for.
 
         Returns:
-            User: The user associated with the session_id, or None
-            if not found.
+            User: The user associated with the session_id, or None if not found.
         """
         if session_id is None:
             return None
@@ -124,8 +123,7 @@ class Auth:
         """Destroy the session for a user by clearing session_id.
 
         Args:
-            user_id (int): The ID of the user whose session
-            should be destroyed.
+            user_id (int): The ID of the user whose session should be destroyed.
 
         Returns:
             None
