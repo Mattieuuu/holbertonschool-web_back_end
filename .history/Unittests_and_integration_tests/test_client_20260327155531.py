@@ -2,7 +2,7 @@
 """Unit tests for the github org client module."""
 
 import unittest
-from unittest.mock import patch, PropertyMock, MagicMock
+from unittest.mock import patch, PropertyMock
 
 from parameterized import parameterized, parameterized_class
 
@@ -80,48 +80,6 @@ class TestGithubOrgClient(unittest.TestCase):
             GithubOrgClient.has_license(repo, license_key),
             expected,
         )
-
-
-@parameterized_class(
-    ("org_payload", "repos_payload", "expected_repos", "apache2_repos"),
-    TEST_PAYLOAD,
-)
-class TestIntegrationGithubOrgClient(unittest.TestCase):
-    """Integration tests for GithubOrgClient using fixtures."""
-
-    @classmethod
-    def setUpClass(cls) -> None:
-        """Set up mock for requests.get with side_effect."""
-        cls.get_patcher = patch("requests.get")
-        mock_get = cls.get_patcher.start()
-
-        def side_effect_func(url):
-            """Return mock response with json() returning fixture data."""
-            mock_response = MagicMock()
-            if url == "https://api.github.com/orgs/google":
-                mock_response.json.return_value = cls.org_payload
-            elif url == cls.org_payload.get("repos_url"):
-                mock_response.json.return_value = cls.repos_payload
-            return mock_response
-
-        mock_get.side_effect = side_effect_func
-
-    @classmethod
-    def tearDownClass(cls) -> None:
-        """Stop the patcher."""
-        cls.get_patcher.stop()
-
-    def test_public_repos(self) -> None:
-        """Test public_repos returns expected list."""
-        client = GithubOrgClient("google")
-        repos = client.public_repos()
-        self.assertEqual(repos, self.expected_repos)
-
-    def test_public_repos_with_apache2_license(self) -> None:
-        """Test public_repos with Apache 2.0 license filter."""
-        client = GithubOrgClient("google")
-        repos = client.public_repos(license="apache-2.0")
-        self.assertEqual(repos, self.apache2_repos)
 
 
 if __name__ == "__main__":

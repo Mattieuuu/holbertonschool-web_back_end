@@ -96,12 +96,20 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         mock_get = cls.get_patcher.start()
 
         def side_effect_func(url):
-            """Return mock response with json() returning fixture data."""
-            mock_response = MagicMock()
-            if url == "https://api.github.com/orgs/google":
-                mock_response.json.return_value = cls.org_payload
-            elif url == cls.org_payload.get("repos_url"):
+            """Return appropriate payload based on URL."""
+            mock_response = patch.object(
+                __import__("unittest.mock").MagicMock, "json"
+            )
+            if url == cls.org_payload.get("repos_url"):
+                mock_response = __import__("unittest.mock").MagicMock()
                 mock_response.json.return_value = cls.repos_payload
+            else:
+                mock_response = __import__("unittest.mock").MagicMock()
+                if "orgs" in url and url != cls.org_payload.get("repos_url"):
+                    mock_response.json.return_value = cls.org_payload
+                else:
+                    mock_response.json.return_value = cls.repos_payload
+
             return mock_response
 
         mock_get.side_effect = side_effect_func
