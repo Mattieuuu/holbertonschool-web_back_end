@@ -1,15 +1,7 @@
--- Create users table with unique email and primary key id
--- Ensure table creation succeeds even if it already exists
-IF NOT EXISTS (
-    SELECT 1
-    FROM sys.objects
-    WHERE object_id = OBJECT_ID(N'dbo.users')
-      AND type = N'U'
-)
-BEGIN
-    CREATE TABLE dbo.users (
-        id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-        email NVARCHAR(255) NOT NULL UNIQUE,
-        name NVARCHAR(255)
-    );
-END;
+-- 0. We are all unique!
+-- SQL script to create a 'users' table with unique email constraint
+CREATE TABLE IF NOT EXISTS users (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    name VARCHAR(255)
+);

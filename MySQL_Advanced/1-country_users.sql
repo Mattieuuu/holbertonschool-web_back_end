@@ -1,5 +1,5 @@
--- Create users table with unique email and country enum defaulting to US
--- Ensure table creation succeeds even if the table already exists
+-- 1. In and not out
+-- SQL script to create a 'users' table with a country ENUM (US, CO, TN)
 CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,

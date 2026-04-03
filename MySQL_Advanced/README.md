@@ -1,37 +1,28 @@
-# 0x0B. Redis Basic
+# MySQL Advanced
 
-This directory contains exercises for learning how to use Redis with Python.
+This directory contains SQL scripts for advanced MySQL tasks as part of the Holberton School curriculum.
 
-## Files
+## Table of Contents
+- 0-uniq_users.sql: Create a `users` table with a unique email constraint
 
-- `exercise.py`: defines a `Cache` class using `redis.Redis`.
+## Usage
+
+All scripts are designed to be run on Ubuntu 20.04 LTS with MySQL 8.0. To execute a script, use:
+
+```
+cat <script_name.sql> | mysql -uroot -p <database_name>
+```
 
 ## Requirements
+- Each SQL file starts with a comment describing the task
+- Each SQL query is preceded by a comment
+- SQL keywords are in uppercase
+- Scripts are idempotent (won't fail if run multiple times)
 
-- Python 3.9+
-- Redis server running locally
-- `redis` Python package
+## Example
+```
+echo "SELECT * FROM users;" | mysql -uroot -p holberton
+```
 
-## Quick Start
-
-1. Start Redis:
-
-	```bash
-	service redis-server start
-	```
-
-2. Install dependency:
-
-	```bash
-	pip3 install redis
-	```
-
-3. Run your script that uses `Cache`:
-
-	```python
-	from exercise import Cache
-
-	cache = Cache()
-	key = cache.store(b"hello")
-	print(key)
-	```
+## Author
+Holberton School Students
