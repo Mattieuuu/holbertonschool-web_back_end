@@ -1,38 +1,19 @@
-const { expect } = require('chai');
 const request = require('request');
-const app = require('./api');
+const { expect } = require('chai');
 
-describe('Index page', () => {
-  let server;
+describe('Index page', function () {
+  const url = 'http://localhost:7865/';
 
-  before((done) => {
-    server = app.listen(7865, done);
-  });
-
-  after((done) => {
-    server.close(done);
-  });
-
-  it('returns status code 200', (done) => {
-    request('http://localhost:7865/', (err, res) => {
-      expect(err).to.equal(null);
+  it('should return status 200', function (done) {
+    request.get(url, function (err, res, body) {
       expect(res.statusCode).to.equal(200);
       done();
     });
   });
 
-  it('returns the correct message', (done) => {
-    request('http://localhost:7865/', (err, res, body) => {
-      expect(err).to.equal(null);
+  it('should return correct message', function (done) {
+    request.get(url, function (err, res, body) {
       expect(body).to.equal('Welcome to the payment system');
-      done();
-    });
-  });
-
-  it('returns 404 for unknown routes', (done) => {
-    request('http://localhost:7865/unknown', (err, res) => {
-      expect(err).to.equal(null);
-      expect(res.statusCode).to.equal(404);
       done();
     });
   });

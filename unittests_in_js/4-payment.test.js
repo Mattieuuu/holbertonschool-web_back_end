@@ -2,17 +2,25 @@ const sinon = require('sinon');
 const Utils = require('./utils');
 const sendPaymentRequestToApi = require('./4-payment');
 
-describe('sendPaymentRequestToApi', () => {
-  it('stubs Utils.calculateNumber and logs the stubbed result', () => {
-    const utilsStub = sinon.stub(Utils, 'calculateNumber').returns(10);
-    const consoleSpy = sinon.spy(console, 'log');
+describe('sendPaymentRequestToApi', function () {
+  let stub;
+  let consoleSpy;
 
-    sendPaymentRequestToApi(100, 20);
+  beforeEach(function () {
+    stub = sinon.stub(Utils, 'calculateNumber').returns(10);
+    consoleSpy = sinon.spy(console, 'log');
+  });
 
-    sinon.assert.calledOnceWithExactly(utilsStub, 'SUM', 100, 20);
-    sinon.assert.calledOnceWithExactly(consoleSpy, 'The total is: 10');
-
+  afterEach(function () {
+    stub.restore();
     consoleSpy.restore();
-    utilsStub.restore();
+  });
+
+  it('should stub Utils.calculateNumber to return 10 and log the correct message', function () {
+    sendPaymentRequestToApi(100, 20);
+    sinon.assert.calledOnce(stub);
+    sinon.assert.calledWithExactly(stub, 'SUM', 100, 20);
+    sinon.assert.calledOnce(consoleSpy);
+    sinon.assert.calledWithExactly(consoleSpy, 'The total is: 10');
   });
 });

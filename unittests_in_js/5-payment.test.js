@@ -1,27 +1,25 @@
 const sinon = require('sinon');
 const sendPaymentRequestToApi = require('./5-payment');
 
-describe('sendPaymentRequestToApi', () => {
+describe('sendPaymentRequestToApi', function () {
   let consoleSpy;
 
-  beforeEach(() => {
+  beforeEach(function () {
     consoleSpy = sinon.spy(console, 'log');
   });
 
-  afterEach(() => {
+  afterEach(function () {
     consoleSpy.restore();
   });
 
-  it('logs The total is: 120 for 100 and 20', () => {
+  it('should log "The total is: 120" for (100, 20)', function () {
     sendPaymentRequestToApi(100, 20);
-
     sinon.assert.calledOnce(consoleSpy);
     sinon.assert.calledWithExactly(consoleSpy, 'The total is: 120');
   });
 
-  it('logs The total is: 20 for 10 and 10', () => {
+  it('should log "The total is: 20" for (10, 10)', function () {
     sendPaymentRequestToApi(10, 10);
-
     sinon.assert.calledOnce(consoleSpy);
     sinon.assert.calledWithExactly(consoleSpy, 'The total is: 20');
   });

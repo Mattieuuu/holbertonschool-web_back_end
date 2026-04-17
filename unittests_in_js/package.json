@@ -1,14 +1,16 @@
 {
   "name": "task_0",
   "version": "1.0.0",
-  "description": "Mocha unit tests for calculateNumber",
+  "description": "Basic test with Mocha and Node assertion library",
   "main": "0-calcul.js",
   "scripts": {
     "test": "mocha"
   },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "chai": "^4.4.1",
-    "mocha": "^10.8.2",
-    "sinon": "^17.0.1"
+    "chai": "^6.2.2",
+    "mocha": "^10.0.0",
+    "sinon": "^21.1.0"
   }
 }
